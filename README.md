@@ -19,7 +19,7 @@ real site share one identity.
 | | URL | State |
 |---|---|---|
 | Holding page | <https://ectolink.org> | **What the domain serves.** 200, indexable, canonical to itself. |
-| ↳ same page | <https://jctec.github.io/ectolink-coming-soon/> | Still reachable; canonical points at the domain so it never competes. |
+| ↳ github.io | <https://jctec.github.io/ectolink-coming-soon/> | 301 → ectolink.org. GitHub does this automatically once a `CNAME` file exists, so there is no second copy to compete with the domain. |
 | Full site | <https://jctec.github.io/ectolink-web/> | **Public and fully working.** Search, predictions, all 69 tree pages. |
 
 `www.ectolink.org` 301s to the apex — GitHub Pages does that itself, and the
@@ -121,9 +121,9 @@ mode. The Page Rules API rejects account-owned tokens outright (`1011`), and
 
 ### About search engines
 
-The domain serves an indexable page canonical to itself. The same page at
-`jctec.github.io/ectolink-coming-soon` declares that canonical too, so the copy
-defers to the domain and the two never compete.
+The domain serves an indexable page canonical to itself. There is no competing
+copy: once a `CNAME` file exists, GitHub 301s `jctec.github.io/ectolink-coming-soon`
+to the custom domain, so that address never serves the page at all.
 
 The full site at `jctec.github.io/ectolink-web` is crawlable, but every page on
 it declares its canonical URL as `https://ectolink.org/…` — which now resolves to
