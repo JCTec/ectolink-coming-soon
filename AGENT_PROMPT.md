@@ -1,8 +1,8 @@
 # Agent prompt — publish the ectolink coming-soon page and pause the main site
 
 Copy everything below the line into a fresh Claude (Code / Cowork) session started in
-`Dev/Mary Paz/ectolink-coming-soon`. Prerequisites: `gh` authenticated, and access to
-the sibling folder `../ectolink-web` (the full site, source of design and icons).
+the project root `Dev/Mary Paz` (the folder that CONTAINS `ectolink-web`).
+Prerequisites: `gh` authenticated.
 
 ---
 
@@ -13,12 +13,24 @@ living in its repo, which simply goes private until publication.
 
 ## Context
 
-- This repo (`ectolink-coming-soon`) holds ONE standalone page, deployed to GitHub
-  Pages, that Cloudflare will redirect ectolink.org to.
-- The full site is in `../ectolink-web`. Its `DESIGN.md` is the visual law and its
-  latest `index.html` + `css/style.css` show the design as actually shipped — use
-  BOTH as reference so the holding page is unmistakably the same product.
+- You are in `Mary Paz`, the project root. The full site lives in `./ectolink-web`;
+  its `DESIGN.md` is the visual law and its latest `index.html` + `css/style.css`
+  show the design as actually shipped — use BOTH as reference so the holding page
+  is unmistakably the same product.
+- You will CREATE a sibling folder `./ectolink-coming-soon` holding ONE standalone
+  page, deployed to GitHub Pages, that Cloudflare will redirect ectolink.org to.
 - The main repo goes PRIVATE (on the free plan that alone stops its GitHub Pages).
+
+## 0. Create the coming-soon repo folder
+
+```
+mkdir -p ectolink-coming-soon && cd ectolink-coming-soon && git init
+```
+
+If the folder already exists with files in it, read what is there and improve it
+rather than starting over. EVERYTHING from here on happens inside
+`ectolink-coming-soon/`; the full site in `../ectolink-web` is read-only reference
+until step 3 — never modify it while building.
 
 ## 1. Build the single HTML page
 
