@@ -62,6 +62,46 @@ deliberately left alone — see the note on search below.
 5. Optional: Google Search Console temporary removal for the `ectolink.org`
    prefix.
 
+### The Cloudflare rule, exactly as deployed
+
+Created via API on 9 August 2026. Zone `ectolink.org` = `134c96478ead8fb99f57d07c53296dcf`.
+
+| | |
+|---|---|
+| Phase | `http_request_dynamic_redirect` |
+| Ruleset ID | `14c9ecff098a47beb55619df1e1a44eb` |
+| Rule ID | `3c824dbe1df04fed995efb235775a8a0` |
+| Expression | `(http.host eq "ectolink.org") or (http.host eq "www.ectolink.org")` |
+| Action | `redirect`, **302**, `preserve_query_string: false` |
+| Target | `https://jctec.github.io/ectolink-coming-soon/` |
+
+It is the only rule in that phase — the phase did not exist before this. The
+zone's one other rule, a cache rule from 8 August, was not touched.
+
+Every path collapses onto the holding page: `/tree/quercus-garryana.html` and
+the other 68 tree pages 302 to the same place rather than 404-ing at a path that
+is no longer served on the domain.
+
+**One DNS record was changed too.** `www.ectolink.org` (CNAME → `jctec.github.io`)
+was grey-cloud/unproxied, so requests to it went straight to GitHub and never
+reached Cloudflare — the rule could not fire and `www` returned a bare 404. It is
+now **proxied** (orange cloud), which is what makes the `www` half of the rule
+work. Leave it proxied at relaunch; the apex records already are, and GitHub
+Pages runs fine behind the proxy — that is how the site was served before.
+
+Reading the rule back, or removing it at relaunch:
+
+```sh
+Z=134c96478ead8fb99f57d07c53296dcf
+curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+  "https://api.cloudflare.com/client/v4/zones/$Z/rulesets/phases/http_request_dynamic_redirect/entrypoint"
+```
+
+The token needs **Zone → Dynamic Redirect → Edit** and **Zone → Cache Purge →
+Purge**; a token with only Zone Read returns `request is not authorized` here.
+Note it is an account-owned token, so it is managed under Manage Account → API
+Tokens, and the Page Rules API rejects it outright (`1011`).
+
 ### About search engines
 
 The holding page carries `<meta name="robots" content="noindex">`, so it never
@@ -105,10 +145,21 @@ and most of that is waiting on a certificate.
       Also confirm the DNS records still point at GitHub Pages.
 
 - [ ] **3. Delete the Cloudflare redirect rule — this is the actual relaunch**
-      Cloudflare dashboard → *Rules* → *Redirect Rules* → delete the
-      `ectolink.org` → `jctec.github.io/ectolink-coming-soon` rule.
-      Then *Caching* → *Purge Everything*, or visitors keep getting the redirect
-      from the edge cache. The site is live again the moment this lands.
+      Dashboard: *Rules* → *Redirect Rules* → delete the `ectolink.org` →
+      `jctec.github.io/ectolink-coming-soon` rule. Or by API, emptying the phase:
+      ```sh
+      Z=134c96478ead8fb99f57d07c53296dcf
+      curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+        -H "Content-Type: application/json" --data '{"rules":[]}' \
+        "https://api.cloudflare.com/client/v4/zones/$Z/rulesets/phases/http_request_dynamic_redirect/entrypoint"
+      ```
+      Then purge, or visitors keep getting the redirect from the edge cache:
+      ```sh
+      curl -s -X POST -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+        -H "Content-Type: application/json" --data '{"purge_everything":true}' \
+        "https://api.cloudflare.com/client/v4/zones/$Z/purge_cache"
+      ```
+      The site is live again the moment this lands.
 
 - [ ] **4. Verify**
       `curl -sIL https://ectolink.org` — expect a **200** from the full site with
