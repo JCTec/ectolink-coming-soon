@@ -16,9 +16,14 @@
     by itself enough to stop its GitHub Pages deployment.
 
     This single page is deployed to GitHub Pages from the ectolink-coming-soon
-    repo, and Cloudflare 302-redirects ectolink.org here. A 302 rather than a 301
-    on purpose: the redirect is temporary, and search engines must keep treating
-    ectolink.org — not this placeholder — as the real home of the content.
+    repo, and ectolink.org is bound to it directly as a custom domain — see the
+    CNAME file beside this one. Visitors stay on ectolink.org and get a 200; there
+    is no redirect and no github.io address in the URL bar.
+
+    (It was a Cloudflare 302 to jctec.github.io/ectolink-coming-soon for the first
+    few hours of the pause. That worked, but it advertised an unbranded address
+    for a page whose whole job is to look like the product. The redirect rule has
+    since been removed.)
 
     See README.md for the dated RELAUNCH CHECKLIST that undoes all of this once
     the paper is published.
@@ -42,13 +47,29 @@
   <meta name="description" content="ectolink is paused while the research behind it goes through peer review. The site returns when the work is published.">
 
   <!--
-    Ask crawlers not to index this page. The real site will return at this same
-    domain, and a placeholder that accumulates its own search presence would
-    compete with the site it is standing in for. Note this is `noindex` without
-    `nofollow` — there is nothing to follow here anyway, and nofollow would add
-    nothing.
+    ===== Why there is NO `noindex` here =====================================
+    There was one, back when this page was reached by a 302 from ectolink.org and
+    therefore lived at a second address (jctec.github.io/ectolink-coming-soon).
+    A placeholder at its own URL should not accumulate search presence competing
+    with the domain it stands in for, so `noindex` was correct then.
+
+    Since this page IS ectolink.org, that reasoning inverts. A `noindex` would now
+    apply to the domain itself and Google would drop ectolink.org from its index
+    entirely — meaning the site returns after publication with its search presence
+    rebuilt from nothing. Google's own guidance for a pause measured in months is
+    the opposite: keep a page serving at the real address with a plain notice on
+    it, which is exactly what this is.
+
+    DO NOT re-add `noindex` while this page is bound to the domain.
   -->
-  <meta name="robots" content="noindex">
+
+  <!--
+    The canonical names the one true address for this content. The page is also
+    reachable at jctec.github.io/ectolink-coming-soon; this tells search engines
+    that copy is a duplicate of the domain and not a page in its own right, so
+    the two never compete.
+  -->
+  <link rel="canonical" href="https://ectolink.org/">
 
   <!--
     ===== Open Graph / preview cards ========================================
@@ -57,22 +78,22 @@
     card rather than a bare URL — with copy that explains the pause instead of
     advertising a tool that currently cannot be used.
 
-    og:url and og:image point at this page's real address on GitHub Pages, not at
-    ectolink.org. The services that fetch a preview image are not browsing the
-    site, so they cannot resolve a relative path — the image URL must be
-    absolute. And because ectolink.org currently 302s to this address, naming the
-    address the content actually lives at is the honest, working choice.
+    og:url and og:image name ectolink.org, matching the canonical above — this
+    page is served AT that domain, so the domain is the address to advertise.
+    Unlike everything else in this file the image must be an absolute URL: the
+    services that fetch a preview card are not browsing the site and have no page
+    to resolve a relative path against.
   -->
   <meta property="og:title" content="ectolink — paused for publication">
   <meta property="og:description" content="Paused while the research behind the site goes through peer review. It returns when the work is published.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jctec.github.io/ectolink-coming-soon/">
-  <meta property="og:image" content="https://jctec.github.io/ectolink-coming-soon/icons/og-image.png">
+  <meta property="og:url" content="https://ectolink.org/">
+  <meta property="og:image" content="https://ectolink.org/icons/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="ectolink — ectomycorrhizal fungi finder">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://jctec.github.io/ectolink-coming-soon/icons/og-image.png">
+  <meta name="twitter:image" content="https://ectolink.org/icons/og-image.png">
 
   <!--
     ===== Icons ==============================================================
