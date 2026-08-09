@@ -1,0 +1,316 @@
+<!doctype html>
+<!--
+  ===========================================================================
+  404.html — the same holding page, served for any path that is not "/".
+  ===========================================================================
+  GitHub Pages serves this file for every URL it cannot find. While the site is
+  paused that is every deep link the full site used to answer: /tree/*.html, and
+  anything else anyone bookmarked or shared. Without this they would get
+  GitHub's stock 404, which is unbranded and says nothing about the pause.
+
+  It is a byte-for-byte copy of index.html apart from this comment. If the
+  holding page changes, re-copy it:  cp index.html 404.html
+
+  The HTTP status really is 404, and that is intentional. Those pages are
+  genuinely not being served right now — that is the point of the pause — so
+  search engines dropping them from the index is the desired outcome. Only the
+  homepage stays indexable, holding the domain's presence until the full site
+  returns and its sitemap brings the rest back.
+  ===========================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    ===========================================================================
+    ectolink — holding page
+    ===========================================================================
+    WHY THIS FILE EXISTS
+    The full site (repo: ectolink-web, deployed to ectolink.org) has been paused
+    at the author's request while the research it presents goes through journal
+    peer review. Nothing has been deleted: the complete site still lives in its
+    repository, which was simply made private — which, on GitHub's free plan, is
+    by itself enough to stop its GitHub Pages deployment.
+
+    This single page is deployed to GitHub Pages from the ectolink-coming-soon
+    repo, and ectolink.org is bound to it directly as a custom domain — see the
+    CNAME file beside this one. Visitors stay on ectolink.org and get a 200; there
+    is no redirect and no github.io address in the URL bar.
+
+    (It was a Cloudflare 302 to jctec.github.io/ectolink-coming-soon for the first
+    few hours of the pause. That worked, but it advertised an unbranded address
+    for a page whose whole job is to look like the product. The redirect rule has
+    since been removed.)
+
+    See README.md for the dated RELAUNCH CHECKLIST that undoes all of this once
+    the paper is published.
+
+    DESIGN CONSTRAINTS
+    - Self-contained: every style lives in the <style> block below. The only
+      requests this page makes beyond the HTML itself are for the icon files
+      copied from the full site (see the Icons section). No fonts, no CDN, no
+      analytics, no JavaScript.
+    - Visually identical in character to the real site so anyone arriving here
+      recognises the product immediately: same tokens (DESIGN.md §2), same system
+      sans stack and two-tone wordmark (DESIGN.md §3), same dark quiet canvas.
+    - Deliberately absent: countdown, email capture, and any link to the thesis,
+      the data, or the predictions. The whole point of the pause is that the
+      findings are not public until the journal is done, so this page must not
+      route anyone to them.
+    ===========================================================================
+  -->
+
+  <title>ectolink — paused for publication</title>
+  <meta name="description" content="ectolink is paused while the research behind it goes through peer review. The site returns when the work is published.">
+
+  <!--
+    ===== Why there is NO `noindex` here =====================================
+    There was one, back when this page was reached by a 302 from ectolink.org and
+    therefore lived at a second address (jctec.github.io/ectolink-coming-soon).
+    A placeholder at its own URL should not accumulate search presence competing
+    with the domain it stands in for, so `noindex` was correct then.
+
+    Since this page IS ectolink.org, that reasoning inverts. A `noindex` would now
+    apply to the domain itself and Google would drop ectolink.org from its index
+    entirely — meaning the site returns after publication with its search presence
+    rebuilt from nothing. Google's own guidance for a pause measured in months is
+    the opposite: keep a page serving at the real address with a plain notice on
+    it, which is exactly what this is.
+
+    DO NOT re-add `noindex` while this page is bound to the domain.
+  -->
+
+  <!--
+    The canonical names the one true address for this content. The page is also
+    reachable at jctec.github.io/ectolink-coming-soon; this tells search engines
+    that copy is a duplicate of the domain and not a page in its own right, so
+    the two never compete.
+  -->
+
+  <!--
+    ===== Open Graph / preview cards ========================================
+    Mirrors the tag set on the full site's index.html so that a link already
+    shared in Slack, Discord, or a group chat still renders as a branded ectolink
+    card rather than a bare URL — with copy that explains the pause instead of
+    advertising a tool that currently cannot be used.
+
+    og:url and og:image name ectolink.org, matching the canonical above — this
+    page is served AT that domain, so the domain is the address to advertise.
+    Unlike everything else in this file the image must be an absolute URL: the
+    services that fetch a preview card are not browsing the site and have no page
+    to resolve a relative path against.
+  -->
+  <meta property="og:title" content="ectolink — paused for publication">
+  <meta property="og:description" content="Paused while the research behind the site goes through peer review. It returns when the work is published.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ectolink.org/">
+  <meta property="og:image" content="https://ectolink.org/icons/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ectolink — ectomycorrhizal fungi finder">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://ectolink.org/icons/og-image.png">
+
+  <!--
+    ===== Icons ==============================================================
+    Copied verbatim from the full site (favicon.ico, apple-touch-icon.png,
+    site.webmanifest and the whole icons/ folder), and wired with the same
+    <link rel> tags its index.html uses. They are generated artefacts of
+    ectolink-web/scripts/build-icons.js — do not edit them here by hand; if they
+    ever need to change, they change there and get copied across again.
+
+    The SVG is listed first because a browser takes the first format it
+    understands, and that one stays sharp at any size from a single small file.
+    The PNGs and the .ico are the fallback for browsers without SVG favicon
+    support. favicon.ico and apple-touch-icon.png sit at the root because
+    browsers and iOS request those exact paths on their own, unprompted.
+  -->
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96.png">
+
+  <!-- iPhone/iPad home screen. iOS rounds the corners itself. -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Safari's pinned-tab silhouette, painted by Safari in the colour given. -->
+  <link rel="mask-icon" href="icons/mask-icon.svg" color="#8B84E8">
+
+  <!-- Name and icon to use if anyone has installed the site to a home screen. -->
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="ectolink">
+  <meta name="application-name" content="ectolink">
+
+  <!--
+    Paint the mobile browser chrome the same near-black as the page so the dark
+    canvas runs edge to edge instead of sitting inside a white frame.
+  -->
+  <meta name="theme-color" content="#14141F">
+
+  <style>
+    /* ---------------------------------------------------------------------
+       Design tokens — DESIGN.md §2, copied exactly.
+       Only the four this page actually needs are declared; the rest of the
+       palette belongs to components (inputs, bars, badges) that do not exist
+       here. Everything is desaturated toward the navy background — nothing on
+       an ectolink page is ever neon.
+       ------------------------------------------------------------------ */
+    :root {
+      --bg:         #14141F; /* page background, very dark desaturated navy */
+      --text:       #E8E8F0; /* primary text — soft white, never pure #FFF */
+      --text-muted: #8A8A9E; /* prose and secondary text (~4.6:1 on --bg) */
+      --accent:     #8B84E8; /* the single brand lavender, used only on "link" */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* html and body both need the full height for the flex centring below to
+       have something to centre against. */
+    html, body { height: 100%; margin: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+
+      /* System sans stack (DESIGN.md §3). Matches the Inter/SF look of the real
+         site at zero font-loading cost, which keeps this page a single request. */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter,
+                   "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+
+      /* Stops the soft white reading heavier than intended on macOS. */
+      -webkit-font-smoothing: antialiased;
+
+      /* The full site is a left-hugging column (DESIGN.md §4); a holding page has
+         no column of results to align to, so it is centred both ways instead —
+         the calmest possible arrangement of four short blocks of text. */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .page {
+      max-width: 480px;   /* narrow measure: prose stays comfortably readable */
+      text-align: center;
+    }
+
+    /* ---------------------------------------------------------------------
+       Wordmark — DESIGN.md §3.
+       "ecto" bold in --text immediately followed by "link" bold in --accent,
+       with NO space or gap between the two spans: they must read as one word.
+       Larger here than the site's 28px because on this page the wordmark is the
+       whole masthead rather than the top of a working interface.
+       ------------------------------------------------------------------ */
+    .brand {
+      margin: 0;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand__accent { color: var(--accent); }
+
+    /* The product question, carried over verbatim from the live site's tagline
+       so the page still says plainly what ectolink is for. */
+    .tagline {
+      margin: 20px 0 0;
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    /* A hairline in the brand colour, standing in for the divider rules the real
+       site uses to separate sections. Low opacity keeps it a breath, not a rule. */
+    .rule {
+      width: 56px;
+      height: 1px;
+      margin: 40px auto;
+      border: 0;
+      background: var(--accent);
+      opacity: 0.45;
+    }
+
+    /* The pause notice: the one thing a visitor is actually here to read. */
+    .notice {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* Dedication — smaller and dimmer than the notice, but present. It is the
+       reason the site exists and it outlives any redesign, including this one. */
+    .dedication {
+      margin: 48px 0 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .dedication strong { color: var(--text); font-weight: 600; }
+
+    /* Narrow screens: the type scale steps down slightly and the vertical
+       breathing room tightens, matching how the full site responds below ~700px. */
+    @media (max-width: 700px) {
+      body     { padding: 32px 20px; }
+      .brand   { font-size: 34px; }
+      .tagline,
+      .notice  { font-size: 16px; }
+      .rule    { margin: 32px auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <!-- ===== Wordmark (DESIGN.md §3) ======================================
+         No whitespace is permitted between the two spans — a newline here would
+         render as a space and break the single-word wordmark. -->
+    <h1 class="brand">ecto<span class="brand__accent">link</span></h1>
+
+    <!-- The product question, word for word from the live site's tagline. Its
+         second line ("Search one of 69 …") is dropped: there is nothing to
+         search right now, and inviting a search that cannot happen would be
+         worse than saying nothing. -->
+    <p class="tagline">Which ectomycorrhizal fungi are likely on a plant's roots?</p>
+
+    <hr class="rule">
+
+    <!-- ===== The pause notice ==============================================
+         Two sentences, and deliberately no more. It says what happened and what
+         ends it, and makes no promise about a date that nobody controls — peer
+         review finishes when it finishes. -->
+    <p class="notice">
+      ectolink is paused while the research behind it goes through
+      journal peer review.
+      The site returns, in full, once that work is published.
+    </p>
+
+    <!--
+      ===== Dedication ======================================================
+      Wording taken verbatim from the full site's dedication section — it is not
+      rewritten here and should not be rewritten later.
+
+      One thing IS removed: the "Read the full thesis here →" link that follows
+      this paragraph on the live site. That is the single deliberate departure
+      from verbatim, and it is the whole point of the pause — this page must not
+      route anyone to the findings while they are under review. The words are
+      untouched; only the outbound link is gone.
+    -->
+    <p class="dedication">
+      ectolink.org is built on the research of
+      <strong>María de la Paz Mañé Duarte</strong>, whose thesis at the
+      University of British Columbia,
+      <em>A roadmap to predicting associations between ectomycorrhizal fungi
+      and host plants</em>, charts a path for predicting which ectomycorrhizal
+      fungi partner with which host plants. This site exists to make that work
+      easier to find, read, and build on.
+    </p>
+
+  </main>
+</body>
+</html>
