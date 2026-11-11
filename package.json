@@ -1,0 +1,11 @@
+{
+  "name": "ectolink-coming-soon",
+  "private": true,
+  "description": "ectolink holding page, served on Heroku by server.js (no dependencies).",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

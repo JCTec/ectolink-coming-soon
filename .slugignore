@@ -1,0 +1,2 @@
+# Files Heroku drops from the deployed app, so they are never served.
+*.md

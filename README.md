@@ -14,6 +14,17 @@ The icons (`favicon.ico`, `apple-touch-icon.png`, `site.webmanifest`, `icons/`)
 are copies of the full site's generated icon set, so the holding page and the
 real site share one identity.
 
+## Heroku
+
+Since 11 November 2026 the Heroku app **`ectolink`** (which holds the
+`ectolink.org` / `www.ectolink.org` custom domains) serves **this repo**, not
+the full site. `server.js` is a copy of `ectolink-web/server.js` (a
+dependency-free static server that mirrors GitHub Pages behaviour);
+`.slugignore` keeps the docs out of the slug. Deploy with
+`git push heroku main`. The `heroku` remote was removed from `ectolink-web` so
+the full site can't be pushed there by accident; at relaunch, re-add it there
+and `git push heroku main --force`.
+
 ## What is where
 
 | | URL | State |
